@@ -3,25 +3,29 @@ import logo from './logo.svg';
 // import './App.css';
 
 class App extends React.Component{
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
 
     this.state = {
-      number:0,
+      number:0+this.props.increment,
     }
   }
 
   onAdd =() =>{
-    this.setState({number : this.state.number+1})
+    this.setState((preState, preProps) =>{
+      return{number:preState.number+ preProps.increment}
+    })
   }
   onSub =() =>{
-    this.setState({number : this.state.number-1})
+    this.setState((preState, preProps) =>{
+      return{number : preState.number-preProps.increment}
+    })
   }
   onSubmit =() =>{
     let {number} = this.state;
     if(number>=0 & number<=100){
     localStorage.setItem(number.toString(),number);
-    let {store} = number;
+    
     }
     else{
       alert('Do not try negative integers and above 100 value')
